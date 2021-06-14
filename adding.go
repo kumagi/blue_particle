@@ -1,16 +1,16 @@
 package main
 
 import (
+	"image/color"
 	"log"
 	"time"
-	"image/color"
-	
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/examples/resources/fonts"
+	"github.com/hajimehoshi/ebiten/v2/text"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 	"math/rand"
-	"github.com/hajimehoshi/ebiten/v2/examples/resources/fonts"
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 const (
@@ -31,12 +31,12 @@ type Dot struct {
 func (d *Dot) Init() {
 	d.x = rand.Float64() * float64(screenWidth)
 	d.y = rand.Float64() * float64(screenHeight)
-	d.dx = rand.Float64() * 32 - 16
-	d.dy = rand.Float64() * 32 - 16
+	d.dx = rand.Float64()*32 - 16
+	d.dy = rand.Float64()*32 - 16
 }
 
 type Game struct {
-	dots [dotCount]Dot
+	dots     [dotCount]Dot
 	dotImage *ebiten.Image
 }
 
@@ -61,19 +61,19 @@ func NewGame() *Game {
 	g.dotImage = ebiten.NewImage(20, 20)
 	text.Draw(g.dotImage, "●", mplusNormalFont, 0, 18,
 		color.RGBA{0x10, 0x30, 0x40, 0xff})
-	return g;
+	return g
 }
 
 func (g *Game) Update() error {
 	for i := 0; i < dotCount; i++ {
 		g.dots[i].x += g.dots[i].dx / 8
 		g.dots[i].y += g.dots[i].dy / 7
-		if screenWidth / 2 < g.dots[i].x {
+		if screenWidth/2 < g.dots[i].x {
 			g.dots[i].dx--
 		} else {
 			g.dots[i].dx++
 		}
-		if screenHeight / 2 < g.dots[i].y {
+		if screenHeight/2 < g.dots[i].y {
 			g.dots[i].dy--
 		} else {
 			g.dots[i].dy++
