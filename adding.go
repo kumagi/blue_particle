@@ -17,7 +17,7 @@ const (
 	screenWidth  = 640
 	screenHeight = 480
 
-	dotCount = 4096
+	dotCount = 2048
 )
 
 var (
@@ -29,10 +29,10 @@ type Dot struct {
 }
 
 func (d *Dot) Init() {
-	d.x = rand.Float64() * float64(screenWidth) * 1.2
-	d.y = rand.Float64() * float64(screenHeight) * 1.2
-	d.dx = 0
-	d.dy = 0
+	d.x = rand.Float64() * float64(screenWidth)
+	d.y = rand.Float64() * float64(screenHeight)
+	d.dx = rand.Float64() * 32 - 16
+	d.dy = rand.Float64() * 32 - 16
 }
 
 type Game struct {
